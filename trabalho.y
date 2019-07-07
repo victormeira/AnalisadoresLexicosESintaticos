@@ -23,8 +23,13 @@
 program : ENTRADA varlist SAIDA varlist cmds FIM FIMDELINHA {printf("Codigo Objeto :\n %s\n", $2);exit(1);};
 
 varlist : id {$$=$1;};
-            |  id varlist {char *result=malloc(strlen($1) + strlen($2) + 2);strcpy(result, $1);
-               strcat(result,"; ");strcat(result,$2);$$=result;};
+            |  id varlist {char *result=malloc(strlen($2) + strlen($1) + 1);strcpy(result, $2);
+               strcat(result,";");strcat(result,$1);$$=result;};
+
+cmds : cmd {$$=$1};
+            |    cmd cmds FIMDELINHA {$$=$1;};
+
+cmd : 
 
 
 program −→ ENTRADA varlist SAIDA varlist cmds FIM
