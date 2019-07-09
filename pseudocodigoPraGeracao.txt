@@ -1,25 +1,30 @@
 Pseudocodigo de geracao dos comandos:
 
 variaveis globais:
+	entryList = ""
+	outList   = ""
 	labelCounter   = 0
-	labelHeap	   = array int[25]
-	labelHeapIndx  = 0
+	labelHeap	   = array int[25] -> pilha de seq dos labels
+	labelHeapIndx  = 0 -> te da prox indx livre
 	auxCounter     = 0
-	auxHeap 	   = array int[25]
-	auxHeapIndx    = 0
+	auxHeap 	   = array int[25] -> pilha
+	auxHeapIndx    = 0 -> te da prox indx livre
 	currentOp 	   = ""
 
 ------ Mapeamento de cada um dos casos --------
 
 ENTRADA:
-	Guarda todos os ids entre ENTRADA e SAIDA -> var EntryList
-	Escreve "input(" + cada id em var EntryList + ")"
+	Guarda todos os ids entre ENTRADA e SAIDA -> var EntryList (concat com , cada id)
+	Escreve "input(" + EntryList + ")"
 
 SAIDA:
-	Guarda todos os ids entre SAIDA e INICIO -> var OutList
+	Guarda todos os ids entre SAIDA e INICIO -> var OutList (concat com , cada id)
 
 INICIO:
 	Utilizado apenas para demarcar o final de SAIDA
+
+FIMDELINHA:
+	Escreve "output(" + OutList + ")";
 
 id = id:
 	Escreve id + " = " + id

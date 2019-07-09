@@ -43,7 +43,7 @@ INICIO
 		ZERA(b)
 	FIM
 
-FIM
+FIMDELINHA
 
 Codigo intermediario gerado pelo projeto:
 
