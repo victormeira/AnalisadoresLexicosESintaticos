@@ -1,0 +1,107 @@
+Pseudocodigo de geracao dos comandos:
+
+variaveis globais:
+	labelCounter   = 0
+	labelHeap	   = array int[25]
+	labelHeapIndx  = 0
+	auxCounter     = 0
+	auxHeap 	   = array int[25]
+	auxHeapIndx    = 0
+	currentOp 	   = ""
+
+------ Mapeamento de cada um dos casos --------
+
+ENTRADA:
+	Guarda todos os ids entre ENTRADA e SAIDA -> var EntryList
+	Escreve "input(" + cada id em var EntryList + ")"
+
+SAIDA:
+	Guarda todos os ids entre SAIDA e INICIO -> var OutList
+
+INICIO:
+	Utilizado apenas para demarcar o final de SAIDA
+
+id = id:
+	Escreve id + " = " + id
+
+INC(id):
+	Escreve id + " = " + id + " + 1"
+
+ZERA(id):
+	Escreve id + " = 0"
+
+SE id ENTAO:
+	// para controle do nome dos labels
+	labelCounter = labelCounter + 1;
+
+	//empilha label do if
+	labelHeap[labelHeapIndx] = labelCounter;
+	labelHeapIndx = labelHeapIndx + 1;
+
+	Escreve "if " + id " == 0 goto L" + string(labelCounter);
+
+SENAO:
+	labelCounter = labelCounter + 1;
+	Escreve "goto L" + string(labelCounter);
+
+	// desempilha label do if
+	Escreve "L" + labelHeap[labelHeapIndx-1] + ":"
+
+	// empilha label do else
+	labelHeap[labelHeapIndx - 1 ] = labelCounter;
+
+FIMSE:
+	// desempilha label do if
+	Escreve "L" + labelHeap[labelHeapIndx-1] + ":"
+	labelHeapIndx = labelHeapIndx - 1;
+
+ENQUANTO id FACA:
+	currentOp = "E";
+	labelCounter = labelCounter + 1;
+	Escreve "L" + string(labelCounter) + ":"
+
+	// Empilha label de dentro primeiro dps o ultimo
+	labelHeap[labelHeapIndx] = labelCounter + 1;
+	labelIndx = labelIndx + 1;
+	labelHeap[labelHeapIndx] = labelCounter;
+
+	labelCounter = labelCounter + 1;
+
+	Escreve "if " + id + " == 0 goto L" + string(labelCounter)
+
+
+FACA id VEZES:
+	currentOp = "F";
+
+	auxCounter = auxCounter + 1;
+	Escreve "aux" + string(auxCounter) + " =  id"
+
+	//empilha aux
+	auxHeap[auxHeapIndx] = auxCounter;
+	auxHeapIndx = auxHeapIndx + 1
+
+	labelCounter = labelCounter + 1;
+	Escreve "L" + string(labelCounter) + ":"
+
+	// Empilha label de dentro primeiro dps o ultimo
+	labelHeap[labelHeapIndx] = labelCounter + 1;
+	labelIndx = labelIndx + 1;
+	labelHeap[labelHeapIndx] = labelCounter;
+
+	labelCounter = labelCounter + 1;
+
+	Escreve "if aux" + string(auxCounter) + " == 0 goto L" + string(labelCounter)
+
+
+FIM:
+	if currentOp = "F"
+		// desempilha variavel aux
+		Escreve "aux" + string(auxHeap[auxHeapIndx]) + " = " + string(auxHeap[auxHeapIndx]) + " - 1"
+		auxHeapIndx = auxHeapIndx - 1
+
+	// desempilha duas vezes
+	Escreve "goto L" + string(labelHeap[labelHeapIndx])
+	labelHeapIndx = labelHeapIndx - 1
+
+	Escreve "L" + string(labelHeap[labelHeapIndx]) + ":"
+	labelHeapIndx = labelHeapIndx - 1

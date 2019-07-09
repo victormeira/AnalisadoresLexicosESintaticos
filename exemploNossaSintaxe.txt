@@ -1,0 +1,98 @@
+2 mudancas na gramatica:
+	Adicao de FIMSE para evitar ambiguidade no SE
+	Adicao de INICIO para facilitar a captura da saida
+
+Exemplo:
+
+Codigo de entrada:
+
+ENTRADA a b c
+SAIDA b
+INICIO
+	INC(a)
+	INC(a)
+	INC(a)
+	b = a
+	INC(c)
+	ZERA(c)
+
+	SE a ENTAO
+		INC(c)
+		INC(c)
+		INC(b)
+	FIMSE
+
+	SE c ENTAO
+		INC(b)
+		INC(a)
+		ZERA(a)
+	SENAO
+		INC(c)
+		INC(b)
+	FIMSE
+
+	ENQUANTO a FACA
+		INC(b)
+		INC(c)
+		ZERA(c)
+	FIM
+
+	FACA a VEZES
+		INC(a)
+		INC(b)
+		ZERA(b)
+	FIM
+
+FIM
+
+Codigo intermediario gerado pelo projeto:
+
+input(a,b,c)
+
+	// reg comands
+	a = a + 1
+	a = a + 1
+	a = a + 1
+	b = a
+	c = c + 1
+	c = 0
+
+	// if command
+	if a == 0 goto L1
+		c = c + 1
+		c = c + 1
+		b = b + 1
+	L1:
+
+	// if else command
+	if c == 0 goto L2
+		b = b + 1
+		a = a + 1
+		a = 0
+		goto L3
+	L2:
+		c = c + 1
+		b = b + 1
+	L3:
+
+	// while command
+	L4:
+		if a == 0 goto L5
+			b = b + 1
+			c = c + 1
+			c = 0
+			goto L4
+	L5:
+
+	// do this times command
+	aux1 = a
+	L6:
+		if aux1 == 0 goto L7
+			a = a + 1
+			b = b + 1
+			c = 0
+			aux1 = aux1 - 1
+			goto L6
+	L7:
+
+output(b)
