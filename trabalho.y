@@ -14,27 +14,30 @@ void updateRegisterVal(char register, int val);
 %token print
 %token exit_command
 %token <id> identifier
-%type <id> assignment
+%type <id> ENTRADA varlist 
 
 %start program
 %%
 
 /* program −→ ENTRADA varlist SAIDA varlist cmds FIM */
 program : ENTRADA varlist SAIDA varlist cmds FIM FIMDELINHA {printf("Codigo Objeto :\n %s\n", $$);exit(EXIT_SUCCESS);}
-            | assignment ';'            {;}
-            | exit_command ';'		    {exit(EXIT_SUCCESS);}
-		    | print cmds ';'			{printf("Imprimindo: %d\n", $2);}
-		    | program assignment ';'	{;}
-		    | program print cmds ';'	{printf("Imprimindo: %d\n", $3);}
-		    | program exit_command ';'	{exit(EXIT_SUCCESS);}
-;
+            | ENTRADA varlist ';'               {;}
+            | ENTRADA exit_command ';'		    {exit(EXIT_SUCCESS);}
+		    | ENTRADA print cmds ';'		    {printf("Imprimindo: %d\n", $2);}
+		    | program ENTRADA varlist ';'	    {;}
+		    | program ENTRADA print cmds ';'	{printf("Imprimindo: %d\n", $3);}
+		    | program ENTRADA exit_command ';'	{exit(EXIT_SUCCESS);}
+            ;
+
 /* varlist −→ id varlist | id */
-varlist : id                {$$ = registerVal($1);};
-            |  id varlist   {$$ = registerVal($1);};
+varlist : identifier                {$$ = registerVal($1);}
+            |  identifier varlist   {$$ = registerVal($1);}
+            ;
 
 /* cmds −→ cmd cmds | cmd */
-cmds : cmd                      {$$=$1};
-        | cmd cmds FIMDELINHA   {$$=$1;};
+cmds : cmd            {$$=$1;}
+        | cmd cmds    {$$=$1;}
+        ;
 
 /* cmd −→ FACA id VEZES cmds FIM
 aux1 = a
@@ -52,8 +55,8 @@ aux1 = a
 cmd −→ SE id ENTAO cmds SENAO cmds FIMSE | SE id ENTAO cmds FIMSE
 cmd −→ id = id | INC(id) | ZERA(id) */
 cmd : identifier '=' identifier  { updateRegisterVal($1,registerVal($3); }  /* send register value in $1 to register $$ */
-        | INC(id)   {updateRegisterVal($1, registerVal($1) + 1);}           /* send register value in $1 to register $1 added 1 */
-        | ZERA(id)  {updateRegisterVal($1, 0);}                             /* send 0 to register $1  */
+        | INC ( identifier )   {updateRegisterVal($3, registerVal($3) + 1);}           /* send register value in $1 to register $1 added 1 */
+        | ZERA ( identifier )  {updateRegisterVal($3, 0);}                             /* send 0 to register $1  */
 
 /*
 program −→ ENTRADA varlist SAIDA varlist cmds FIM
