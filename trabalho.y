@@ -4,9 +4,7 @@
     #include <string.h>
 
     int yylex();
-    void yyerror(const char *s){
-        fprintf(stderr, "%s\n", s);
-    };
+    void yyerror (char *s);
 
     int registers[26];
 
@@ -71,3 +69,5 @@ void updateRegisterVal(char symbol, int val)
 	int indexArray = computeRegisterIndex(symbol);
 	registers[indexArray] = val;
 }
+
+void yyerror (char *s) {fprintf (stderr, "%s\n", s);} 
