@@ -15,7 +15,7 @@
 
 %int numero;
 
-%token<numero> NUM;
+%token<numero> VAR;
 %token<numero> OUTRO;
 
 %type <numero> program varlist cmds cmd;

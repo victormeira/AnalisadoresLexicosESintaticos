@@ -14,9 +14,10 @@
 "FIMSE"     {return FIMSE;}
 \n          {return FIMDELINHA;}
 "="         {return IGUAL;}
-//INC       {return INC;}
-//ZERA      {return ZERA;}
-[0-9]+ { yylval = atoi(yytext); return NUM; }
+
+"INC\("[a-z]"\)"        {yylval = yytext[4]; return  INC;} /* id is in position 4 of string */
+"ZERA\("[a-z]"\)"       {yylval = yytext[5]; return ZERA;} /* id is in position 5 of string */
+[a-z]    { yylval = yytext[0]; return VAR; }
 .        { showError(); return (OUTRO) }
 
 void showError(){
