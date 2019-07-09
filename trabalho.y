@@ -54,9 +54,9 @@ aux1 = a
 /* cmd −→ ENQUANTO id FACA cmds FIM
 cmd −→ SE id ENTAO cmds SENAO cmds FIMSE | SE id ENTAO cmds FIMSE
 cmd −→ id = id | INC(id) | ZERA(id) */
-cmd : identifier '=' identifier  { updateRegisterVal($1,registerVal($3); }  /* send register value in $1 to register $$ */
-        | INC ( identifier )   {updateRegisterVal($3, registerVal($3) + 1);}           /* send register value in $1 to register $1 added 1 */
-        | ZERA ( identifier )  {updateRegisterVal($3, 0);}                             /* send 0 to register $1  */
+cmd : identifier EQUAL identifier   { updateRegisterVal($1,registerVal($3); }       /* send register value in $3 to register $1 */
+        | INC AP identifier FP      { updateRegisterVal($3, registerVal($3) + 1); } /* send register value in $3 to register $1 added 1 */
+        | ZERA AP identifier FP     { updateRegisterVal($3, 0); }                   /* send 0 to register $3  */
 
 /*
 program −→ ENTRADA varlist SAIDA varlist cmds FIM
