@@ -81,6 +81,7 @@ input(a,b,c)
 			b = b + 1
 			c = c + 1
 			c = 0
+			a = a - 1
 			goto L4
 	L5:
 

@@ -22,8 +22,6 @@ int yylex();
 
 "INC\("[a-z]"\)"    { yylval = yytext[4]; return  INC; } /* id is in position 4 of string */
 "ZERA\("[a-z]"\)"   { yylval = yytext[5]; return ZERA; } /* id is in position 5 of string */
-"ZERA"		        {return ZERA;}
-"INC"               {return INC;}
 [a-zA-Z]            { yylval.id = yytext[0]; return ID; }
 [=;]               	{return yytext[0];}
 .                   {ECHO; yyerror ("character inesperado.");}
