@@ -4,24 +4,20 @@
       #include "sequenciacomandos.tab.h"
 %%
 [\t\n]
-do          {return DO;}
-while       {return WHILE;}
-
-fim         return(FIM);
-program     return(ENTRADA);
-
+"ENTRADA"   {return ENTRADA;}
+"FIM"       {return FIM;}
+"FACA"      {return FACA;}
+"VEZES"     {return VEZES;}
+"SE"        {return SE;}
+"ENTAO"     {return ENTAO;}
+"SENAO"     {return SENAO;}
+"FIMSE"     {return FIMSE;}
+\n          {return FIMDELINHA;}
+"="         {return IGUAL;}
+//INC       {return INC;}
+//ZERA      {return ZERA;}
 [0-9]+ { yylval = atoi(yytext); return NUM; }
 .        { showError(); return (OUTRO) }
-
-\n       {return FIMDELINHA;}   
-"="      {return IGUAL;}
-"+"      {return MAIS;}
-"*"      {return MULT;}
-"("      {return AP;}
-")"      {return FP;}
-"{"      {return AC;}
-"}"      {return FC;}
-";"      {return PV;}
 
 void showError(){
     printf("\nEntrada fora da sintaxe: %s\nSomente sao aceitos numeros.\n", yytext);
