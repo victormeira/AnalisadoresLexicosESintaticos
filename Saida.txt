@@ -1,36 +1,36 @@
 
-entradaDados (s,x,y)
-ZERA x
+input (s,x,y)
+x = 0
 Repita o comando i vezes {
-INC y
-Atribui valor de y em x
+y = y + 1
+x = y
 }
 
 fim do faca;
 
 enquanto i > 0 faca {
-ZERA x
-Atribui valor de y em x
+x = 0
+x = y
 }
 
 fim do enquanto;
 
 se i > 0 se {
-INC s
-ZERA x
+s = s + 1
+x = 0
 }
 
 fim do entao;
 senao {
-INC x
-ZERA y
+x = x + 1
+y = 0
 }
 
 fim do senao;
 
 se x > 0 se {
-Atribui valor de y em s
-ZERA y
+s = y
+y = 0
 }
 
 fim do se;
