@@ -1299,7 +1299,7 @@ yyreduce:
 
   case 7:
 #line 40 "trabalhoals.y" /* yacc.c:1646  */
-    {destino = (char *)malloc(11+(strlen((yyvsp[0].letra)))*sizeof(char)); strcpy(destino,"\ndestino("); strcat(destino,(yyvsp[0].letra)); strcat(destino,");\n");}
+    {destino = (char *)malloc(12+(strlen((yyvsp[0].letra)))*sizeof(char)); strcpy(destino,"\ndestino("); strcat(destino,(yyvsp[0].letra)); strcat(destino,");\n");}
 #line 1304 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 

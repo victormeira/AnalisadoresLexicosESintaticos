@@ -37,7 +37,7 @@ linha           : expressao FIMDELINHA {$$ = $1;}
                 ;
 
 expressao       : ENTRADA varlist {arquivo = fopen("Saida.txt","w"); fprintf (arquivo,"\nentradaDados (%s)\n", $2);}
-                | SAIDA varlist {destino = (char *)malloc(11+(strlen($2))*sizeof(char)); strcpy(destino,"\ndestino("); strcat(destino,$2); strcat(destino,");\n");}
+                | SAIDA varlist {destino = (char *)malloc(12+(strlen($2))*sizeof(char)); strcpy(destino,"\ndestino("); strcat(destino,$2); strcat(destino,");\n");}
                 | cmds {;}
                 | FIM {	fputs(destino,arquivo); fprintf (arquivo,"\nFim\n");fclose(arquivo); exit(1);}
                 ;
