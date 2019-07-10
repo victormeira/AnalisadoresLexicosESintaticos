@@ -23,7 +23,7 @@ SAIDA:
 INICIO:
 	Utilizado apenas para demarcar o final de SAIDA
 
-FIMDELINHA:
+FIMDEPROGRAMA:
 	Escreve "output(" + OutList + ")";
 
 id = id:
