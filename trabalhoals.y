@@ -52,15 +52,15 @@ cmd             : FACA id VEZES                 { fprintf (arquivo,"Repita o com
                 | ENQUANTO id FACA              { fprintf (arquivo,"\nenquanto %s > 0 faca {\n", $2);}
                                                 FIMDELINHA cmds FIMENQUANTO
                                                 { fprintf(arquivo,"}\n");fprintf (arquivo,"\nfim do enquanto;\n"); $$ = $1; }
-                | SE id ENTAO                   { labelCounter++; fprintf (arquivo,"\nif %s == 0 goto L%d\n", $2, labelCounter);}
+                | SE id ENTAO                   { labelCounter++; labelHeap[labelHeapIndx] = labelCounter; labelHeapIndx++; fprintf (arquivo,"\nif %s == 0 goto L%d\n", $2, labelCounter);}
                                                 FIMDELINHA cmds FIMSE FIMDELINHA
                                                 check
                 | id IGUAL id FIMDELINHA        { fprintf (arquivo,"%s = %s\n",$1,$3);}
                 | INC AP id FP FIMDELINHA       { fprintf (arquivo,"%s = %s + 1\n", $3, $3); $$=$3;}
                 | ZERA AP id FP FIMDELINHA      { fprintf (arquivo,"%s = 0\n",$3);}
                 ;
-check           : SENAO                         { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do entao;\n"); fprintf(arquivo,"senao {\n"); } FIMDELINHA cmds FIMSENAO { fprintf(arquivo,"}\n"); fprintf (arquivo,"\nfim do senao;\n"); $$ = $1; }
-                |                               { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do se;\n"); } linha {$$ = $2;}
+check           : SENAO { labelCounter++; fprintf(arquivo,"goto L%d\n", labelCounter); fprintf(arquivo,"L%d:\n",labelHeap[labelHeapIndx-1]); labelHeap[labelHeapIndx - 1] = labelCounter; } FIMDELINHA cmds FIMSENAO { fprintf(arquivo,"L%d\n", labelHeap[labelHeapIndx-1]); labelHeapIndx--; $$ = $1; }
+                |       { ; fprintf(arquivo,"L%d:\n", labelHeap[labelHeapIndx - 1]); labelHeapIndx--; } linha {$$ = $2;}
                 ;
 %%
 int main(int argc, char *argv[])
