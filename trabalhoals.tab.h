@@ -60,12 +60,13 @@ extern int yydebug;
     FIMENQUANTO = 270,
     FIMSE = 271,
     FIM = 272,
-    FIMDELINHA = 273,
-    IGUAL = 274,
-    AP = 275,
-    FP = 276,
-    PROGRAM = 277,
-    id = 278
+    FIMENTAO = 273,
+    FIMDELINHA = 274,
+    IGUAL = 275,
+    AP = 276,
+    FP = 277,
+    PROGRAM = 278,
+    id = 279
   };
 #endif
 
@@ -79,7 +80,7 @@ union YYSTYPE
    char *letra;
    int  numero;
 
-#line 83 "trabalhoals.tab.h" /* yacc.c:1909  */
+#line 84 "trabalhoals.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
