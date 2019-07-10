@@ -9,17 +9,17 @@
                 fprintf(stderr, "%s\n", s);
         };
 
-        char[] outList = "";
+        char outList[50] = "";
 
         int labelCounter = 0;
-        int[25] labelHeap;
+        int labelHeap[25];
         int labelHeapIndx = 0;
 
         int auxCounter = 0;
-        int[25] auxHeap;
+        int auxHeap[25];
         int auxHeapIndx = 0;
 
-        char currentOp = '';
+        char currentOp = 'c';
 %}
 %union
  {
@@ -56,7 +56,7 @@ cmd             : FACA id VEZES                 { fprintf (arquivo,"Repita o com
                 | ENQUANTO id FACA              { fprintf (arquivo,"\nenquanto %s > 0 faca {\n", $2);}
                                                 FIMDELINHA cmds FIMENQUANTO
                                                 { fprintf(arquivo,"}\n");fprintf (arquivo,"\nfim do enquanto;\n"); $$ = $1; }
-                | SE id ENTAO                   { fprintf (arquivo,"\nse %s > 0 se {\n", $2);}
+                | SE id ENTAO                   { labelcounter++; fprintf (arquivo,"\nif %s == 0 goto L%d\n", $2);}
                                                 FIMDELINHA cmds FIMSE FIMDELINHA
                                                 check
                 | id IGUAL id FIMDELINHA        { fprintf (arquivo,"%s = %s\n",$1,$3);}
