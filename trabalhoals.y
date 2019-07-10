@@ -8,6 +8,18 @@
         void yyerror(const char *s){
                 fprintf(stderr, "%s\n", s);
         };
+
+        char[] outList = "";
+
+        int labelCounter = 0;
+        int[25] labelHeap;
+        int labelHeapIndx = 0;
+
+        int auxCounter = 0;
+        int[25] auxHeap;
+        int auxHeapIndx = 0;
+
+        char currentOp = '';
 %}
 %union
  {
