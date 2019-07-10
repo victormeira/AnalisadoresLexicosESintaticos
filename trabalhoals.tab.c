@@ -73,20 +73,16 @@
         void yyerror(const char *s){
                 fprintf(stderr, "%s\n", s);
         };
-
-        char[] outList = "";
-
+        char outList[50] = "";
         int labelCounter = 0;
-        int[25] labelHeap;
+        int labelHeap[25];
         int labelHeapIndx = 0;
-
         int auxCounter = 0;
-        int[25] auxHeap;
+        int auxHeap[25];
         int auxHeapIndx = 0;
+        char currentOp = 'c';
 
-        char currentOp = '';
-
-#line 90 "trabalhoals.tab.c" /* yacc.c:339  */
+#line 86 "trabalhoals.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -150,12 +146,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 25 "trabalhoals.y" /* yacc.c:355  */
+#line 21 "trabalhoals.y" /* yacc.c:355  */
 
    char *letra;
    int  numero;
 
-#line 159 "trabalhoals.tab.c" /* yacc.c:355  */
+#line 155 "trabalhoals.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -172,7 +168,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 176 "trabalhoals.tab.c" /* yacc.c:358  */
+#line 172 "trabalhoals.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -471,9 +467,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    35,    35,    37,    38,    40,    42,    43,    44,    45,
-      47,    48,    50,    51,    53,    53,    56,    56,    59,    59,
-      62,    63,    64,    66,    66,    67,    67
+       0,    31,    31,    33,    34,    36,    38,    39,    40,    41,
+      43,    44,    46,    47,    49,    49,    52,    52,    55,    55,
+      58,    59,    60,    62,    62,    63,    63
 };
 #endif
 
@@ -1278,151 +1274,151 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 35 "trabalhoals.y" /* yacc.c:1646  */
+#line 31 "trabalhoals.y" /* yacc.c:1646  */
     {printf ("Fim");}
-#line 1284 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1280 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 37 "trabalhoals.y" /* yacc.c:1646  */
+#line 33 "trabalhoals.y" /* yacc.c:1646  */
     {(yyval.letra) = (yyvsp[0].letra);}
-#line 1290 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1286 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 38 "trabalhoals.y" /* yacc.c:1646  */
+#line 34 "trabalhoals.y" /* yacc.c:1646  */
     {char * destino = malloc(strlen((yyvsp[-1].letra)) + strlen((yyvsp[0].letra)) + 1); strcpy(destino, (yyvsp[-1].letra)); strcat(destino, ";\n"); strcat(destino, (yyvsp[0].letra)); (yyval.letra)=destino;}
-#line 1296 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1292 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 40 "trabalhoals.y" /* yacc.c:1646  */
+#line 36 "trabalhoals.y" /* yacc.c:1646  */
     {(yyval.letra) = (yyvsp[-1].letra);}
-#line 1302 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1298 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 42 "trabalhoals.y" /* yacc.c:1646  */
+#line 38 "trabalhoals.y" /* yacc.c:1646  */
     {arquivo = fopen("Saida.txt","w"); fprintf (arquivo,"\ninput (%s)\n", (yyvsp[0].letra));}
-#line 1308 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1304 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 43 "trabalhoals.y" /* yacc.c:1646  */
+#line 39 "trabalhoals.y" /* yacc.c:1646  */
     {destino = (char *)malloc(12+(strlen((yyvsp[0].letra)))*sizeof(char)); strcpy(destino,"\ndestino("); strcat(destino,(yyvsp[0].letra)); strcat(destino,");\n");}
-#line 1314 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1310 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 44 "trabalhoals.y" /* yacc.c:1646  */
+#line 40 "trabalhoals.y" /* yacc.c:1646  */
     {;}
-#line 1320 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1316 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 45 "trabalhoals.y" /* yacc.c:1646  */
+#line 41 "trabalhoals.y" /* yacc.c:1646  */
     {	fputs(destino,arquivo); fprintf (arquivo,"\nFim\n");fclose(arquivo); exit(1);}
-#line 1326 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1322 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 47 "trabalhoals.y" /* yacc.c:1646  */
+#line 43 "trabalhoals.y" /* yacc.c:1646  */
     {char * destino = malloc(strlen((yyvsp[-1].letra)) + strlen((yyvsp[0].letra)) + 1); strcpy(destino, (yyvsp[-1].letra)); strcat(destino, ","); strcat(destino, (yyvsp[0].letra)); (yyval.letra)=destino;}
-#line 1332 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1328 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 48 "trabalhoals.y" /* yacc.c:1646  */
+#line 44 "trabalhoals.y" /* yacc.c:1646  */
     {(yyval.letra) = (yyvsp[0].letra);}
-#line 1338 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1334 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 50 "trabalhoals.y" /* yacc.c:1646  */
+#line 46 "trabalhoals.y" /* yacc.c:1646  */
     {char * destino = malloc(strlen((yyvsp[-1].letra)) + strlen((yyvsp[0].letra)) + 1); strcpy(destino, (yyvsp[-1].letra)); strcat(destino, ";\n"); strcat(destino, (yyvsp[0].letra)); (yyval.letra)=destino;}
-#line 1344 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1340 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 51 "trabalhoals.y" /* yacc.c:1646  */
+#line 47 "trabalhoals.y" /* yacc.c:1646  */
     {(yyval.letra)=(yyvsp[0].letra);}
-#line 1350 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1346 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 53 "trabalhoals.y" /* yacc.c:1646  */
+#line 49 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf (arquivo,"Repita o comando %s vezes {\n", (yyvsp[-1].letra));}
-#line 1356 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1352 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 55 "trabalhoals.y" /* yacc.c:1646  */
+#line 51 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf(arquivo,"}\n");fprintf (arquivo,"\nfim do faca;\n"); (yyval.letra) = (yyvsp[-6].letra); }
-#line 1362 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1358 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 56 "trabalhoals.y" /* yacc.c:1646  */
+#line 52 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf (arquivo,"\nenquanto %s > 0 faca {\n", (yyvsp[-1].letra));}
-#line 1368 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1364 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 58 "trabalhoals.y" /* yacc.c:1646  */
+#line 54 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf(arquivo,"}\n");fprintf (arquivo,"\nfim do enquanto;\n"); (yyval.letra) = (yyvsp[-6].letra); }
-#line 1374 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1370 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 59 "trabalhoals.y" /* yacc.c:1646  */
-    { fprintf (arquivo,"\nse %s > 0 se {\n", (yyvsp[-1].letra));}
-#line 1380 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 55 "trabalhoals.y" /* yacc.c:1646  */
+    { labelCounter++; fprintf (arquivo,"\nif %s == 0 goto L%d\n", (yyvsp[-1].letra), labelCounter);}
+#line 1376 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 62 "trabalhoals.y" /* yacc.c:1646  */
+#line 58 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf (arquivo,"%s = %s\n",(yyvsp[-3].letra),(yyvsp[-1].letra));}
-#line 1386 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1382 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 63 "trabalhoals.y" /* yacc.c:1646  */
+#line 59 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf (arquivo,"%s = %s + 1\n", (yyvsp[-2].letra), (yyvsp[-2].letra)); (yyval.letra)=(yyvsp[-2].letra);}
-#line 1392 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1388 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 64 "trabalhoals.y" /* yacc.c:1646  */
+#line 60 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf (arquivo,"%s = 0\n",(yyvsp[-2].letra));}
-#line 1398 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1394 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 66 "trabalhoals.y" /* yacc.c:1646  */
+#line 62 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do entao;\n"); fprintf(arquivo,"senao {\n"); }
-#line 1404 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1400 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 66 "trabalhoals.y" /* yacc.c:1646  */
+#line 62 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf(arquivo,"}\n"); fprintf (arquivo,"\nfim do senao;\n"); (yyval.letra) = (yyvsp[-4].letra); }
-#line 1410 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1406 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 67 "trabalhoals.y" /* yacc.c:1646  */
+#line 63 "trabalhoals.y" /* yacc.c:1646  */
     { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do se;\n"); }
-#line 1416 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1412 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 67 "trabalhoals.y" /* yacc.c:1646  */
+#line 63 "trabalhoals.y" /* yacc.c:1646  */
     {(yyval.letra) = (yyvsp[0].letra);}
-#line 1422 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1418 "trabalhoals.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1426 "trabalhoals.tab.c" /* yacc.c:1646  */
+#line 1422 "trabalhoals.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1650,7 +1646,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 69 "trabalhoals.y" /* yacc.c:1906  */
+#line 65 "trabalhoals.y" /* yacc.c:1906  */
 
 int main(int argc, char *argv[])
 {

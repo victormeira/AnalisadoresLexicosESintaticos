@@ -4,18 +4,18 @@ x = 0
 Repita o comando i vezes {
 y = y + 1
 x = y
+y = 0
 }
 
 fim do faca;
 
 enquanto i > 0 faca {
 x = 0
-x = y
 }
 
 fim do enquanto;
 
-se i > 0 se {
+if i == 0 goto L1
 s = s + 1
 x = 0
 }
@@ -28,9 +28,6 @@ y = 0
 
 fim do senao;
 
-se x > 0 se {
-s = y
-y = 0
-}
+destino(x);
 
-fim do se;
+Fim

@@ -8,17 +8,13 @@
         void yyerror(const char *s){
                 fprintf(stderr, "%s\n", s);
         };
-
         char outList[50] = "";
-
         int labelCounter = 0;
         int labelHeap[25];
         int labelHeapIndx = 0;
-
         int auxCounter = 0;
         int auxHeap[25];
         int auxHeapIndx = 0;
-
         char currentOp = 'c';
 %}
 %union
@@ -27,7 +23,7 @@
    int  numero;
 };
 %type <letra> inicio linhas linha expressao varlist cmds cmd check;
-%token<letra> ENTRADA SAIDA FACA VEZES ENQUANTO SE ENTAO SENAO INC ZERA FIMFACA FIMSENAO FIMENQUANTO FIMSE FIM;
+%token<letra> ENTRADA SAIDA FACA VEZES ENQUANTO SE ENTAO SENAO INC ZERA FIMFACA FIMSENAO FIMENQUANTO FIMSE FIM FIMENTAO;
 %token<numero> FIMDELINHA IGUAL AP FP PROGRAM;
 %token<letra> id;
 %start inicio
@@ -40,8 +36,8 @@ linhas          : linha {$$ = $1;}
 linha           : expressao FIMDELINHA {$$ = $1;}
                 ;
 expressao       : ENTRADA varlist {arquivo = fopen("Saida.txt","w"); fprintf (arquivo,"\ninput (%s)\n", $2);}
-                | SAIDA varlist {destino = (char *)malloc(12+(strlen($2))*sizeof(char)); strcpy(destino,"\ndestino("); strcat(destino,$2); strcat(destino,");\n");}
-                | cmds {;}
+                | SAIDA varlist {destino = (char *)malloc(11+(strlen($2))*sizeof(char)); strcpy(destino,"\noutput("); strcat(destino,$2); strcat(destino,");\n");}
+                | cmds expressao {;}
                 | FIM {	fputs(destino,arquivo); fprintf (arquivo,"\nFim\n");fclose(arquivo); exit(1);}
                 ;
 varlist         : id varlist {char * destino = malloc(strlen($1) + strlen($2) + 1); strcpy(destino, $1); strcat(destino, ","); strcat(destino, $2); $$=destino;}
@@ -63,8 +59,8 @@ cmd             : FACA id VEZES                 { fprintf (arquivo,"Repita o com
                 | INC AP id FP FIMDELINHA       { fprintf (arquivo,"%s = %s + 1\n", $3, $3); $$=$3;}
                 | ZERA AP id FP FIMDELINHA      { fprintf (arquivo,"%s = 0\n",$3);}
                 ;
-check           : SENAO { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do entao;\n"); fprintf(arquivo,"senao {\n"); } FIMDELINHA cmds FIMSENAO { fprintf(arquivo,"}\n"); fprintf (arquivo,"\nfim do senao;\n"); $$ = $1; }
-                |       { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do se;\n"); } linha {$$ = $2;}
+check           : SENAO                         { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do entao;\n"); fprintf(arquivo,"senao {\n"); } FIMDELINHA cmds FIMSENAO { fprintf(arquivo,"}\n"); fprintf (arquivo,"\nfim do senao;\n"); $$ = $1; }
+                |                               { fprintf(arquivo,"}\n"); fprintf(arquivo,"\nfim do se;\n"); } linha {$$ = $2;}
                 ;
 %%
 int main(int argc, char *argv[])
