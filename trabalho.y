@@ -3,7 +3,7 @@ void yyerror (char *s);
 int yylex();
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <ctype.h>
 int registers[52];
 int registerVal(char register);
 void updateRegisterVal(char register, int val);
@@ -20,13 +20,13 @@ void updateRegisterVal(char register, int val);
 
 %%
 
-program : ENTRADA varlist SAIDA varlist cmds FIM FIMDELINHA {printf("Codigo Objeto :\n %s\n", $$); exit(EXIT_SUCCESS);}
-            | ENTRADA varlist ';'               {;}
-            | ENTRADA exit_command ';'		    {exit(EXIT_SUCCESS);}
-		    | ENTRADA print cmds ';'		    {printf("Imprimindo: %d\n", $3);}
-		    | program ENTRADA varlist ';'	    {;}
-		    | program ENTRADA print cmds ';'	{printf("Imprimindo: %d\n", $4);}
-		    | program ENTRADA exit_command ';'	{exit(EXIT_SUCCESS);}
+program : ENTRADA varlist SAIDA varlist cmds FIM FIMDELINHA {exit(EXIT_SUCCESS);}
+            | ENTRADA varlist               {;}
+            | ENTRADA exit_command		    {exit(EXIT_SUCCESS);}
+		    | ENTRADA print cmds		    {printf("Imprimindo: %d\n", $3);}
+		    | program ENTRADA varlist	    {;}
+		    | program ENTRADA print cmds	{printf("Imprimindo: %d\n", $4);}
+		    | program ENTRADA exit_command	{exit(EXIT_SUCCESS);}
             ;
 
 varlist : identifier                {$$ = registerVal($1);}
@@ -37,9 +37,10 @@ cmds : cmd            {$$=$1;}
         | cmd cmds    {$$=$1;}
         ;
 
-cmd : identifier EQUAL identifier   { updateRegisterVal($1,registerVal($3); }       /* send register value in $3 to register $1 */
-        | INC AP identifier FP      { updateRegisterVal($3, registerVal($3) + 1); } /* send register value in $3 to register $1 added 1 */
-        | ZERA AP identifier FP     { updateRegisterVal($3, 0); }                   /* send 0 to register $3  */
+cmd : 	  identifier
+		| identifier EQUAL identifier   { updateRegisterVal($1, registerVal($3)); }       	/* send register value in $3 to register $1 */
+        | INC AP identifier FP     		{ updateRegisterVal($3, ((registerVal($3)) + 1)); }	/* send register value in $3 to register $1 added 1 */
+        | ZERA AP identifier FP    		{ updateRegisterVal($3, 0); }                  		/* send 0 to register $3  */
 
 %%
 
