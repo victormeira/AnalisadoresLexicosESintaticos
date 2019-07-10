@@ -56,7 +56,7 @@ cmd             : FACA id VEZES                 { fprintf (arquivo,"Repita o com
                 | ENQUANTO id FACA              { fprintf (arquivo,"\nenquanto %s > 0 faca {\n", $2);}
                                                 FIMDELINHA cmds FIMENQUANTO
                                                 { fprintf(arquivo,"}\n");fprintf (arquivo,"\nfim do enquanto;\n"); $$ = $1; }
-                | SE id ENTAO                   { labelcounter++; fprintf (arquivo,"\nif %s == 0 goto L%d\n", $2);}
+                | SE id ENTAO                   { labelCounter++; fprintf (arquivo,"\nif %s == 0 goto L%d\n", $2, labelCounter);}
                                                 FIMDELINHA cmds FIMSE FIMDELINHA
                                                 check
                 | id IGUAL id FIMDELINHA        { fprintf (arquivo,"%s = %s\n",$1,$3);}
