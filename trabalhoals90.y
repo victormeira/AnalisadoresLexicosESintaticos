@@ -21,7 +21,7 @@
    char *letra;
    int  numero;
 };
-%type <letra> inicio linhas linha expressao varlist cmds cmd opcao;
+%type <letra> inicio linhas linha expressao varlist cmds cmd casoSenao;
 %token<letra> ENTRADA SAIDA FACA VEZES ENQUANTO SE ENTAO SENAO INC ZERA FIMFACA FIMSENAO FIMENQUANTO FIMSE FIM FIMENTAO;
 %token<numero> FIMDELINHA IGUAL AP FP PROGRAM;
 %token<letra> id;
@@ -51,17 +51,24 @@ cmd             : FACA id VEZES                 { auxCounter++; fprintf(arquivo,
                 | ENQUANTO id FACA              { labelCounter++; fprintf(arquivo,"\nL%d:\n", labelCounter); labelHeap[labelHeapIndx] = labelCounter + 1; labelHeapIndx++; labelHeap[labelHeapIndx] = labelCounter; labelCounter++; fprintf (arquivo,"if %s == 0 goto L%d\n", $2, labelCounter);}
                                                 FIMDELINHA cmds FIMENQUANTO
                                                 { fprintf(arquivo,"goto L%d\n", labelHeap[labelHeapIndx]); labelHeapIndx--; fprintf(arquivo,"\nL%d:\n", labelCounter); labelHeapIndx--; $$ = $1; }
+                
+                
+                
+                
                 | SE id ENTAO                   { labelCounter++; labelHeap[labelHeapIndx] = labelCounter; labelHeapIndx++; fprintf (arquivo,"if %s == 0 goto L%d\n", $2, labelCounter);}
-                                                FIMDELINHA cmds opcao                                                  
+                                                FIMDELINHA cmds FIMSE                                               
+                
+                
+                
+                
+                
                 | id IGUAL id FIMDELINHA        { fprintf (arquivo,"%s = %s\n",$1,$3);}
                 | INC AP id FP FIMDELINHA       { fprintf (arquivo,"%s = %s + 1\n", $3, $3); $$=$3;}
                 | ZERA AP id FP FIMDELINHA      { fprintf (arquivo,"%s = 0\n",$3);}
                 ;
-
-opcao           : FIMSE
-                | SENAO { labelCounter++; fprintf(arquivo,"goto L%d\n", labelCounter); fprintf(arquivo,"\nL%d:\n",labelHeap[labelHeapIndx-1]); labelHeap[labelHeapIndx - 1] = labelCounter; } FIMDELINHA cmds FIMSENAO { fprintf(arquivo,"\nL%d\n", labelHeap[labelHeapIndx-1]); labelHeapIndx--; $$ = $1; }
+casoSenao       : SENAO { labelCounter++; fprintf(arquivo,"goto L%d\n", labelCounter); fprintf(arquivo,"\nL%d:\n",labelHeap[labelHeapIndx-1]); labelHeap[labelHeapIndx - 1] = labelCounter; } FIMDELINHA cmds FIMSENAO { fprintf(arquivo,"\nL%d\n", labelHeap[labelHeapIndx-1]); labelHeapIndx--; $$ = $1; }
+                |       { ; fprintf(arquivo,"\nL%d:\n", labelHeap[labelHeapIndx - 1]); labelHeapIndx--; } linha {$$ = $2;}
                 ;
-
 %%
 int main(int argc, char *argv[])
 {

@@ -1,10 +1,44 @@
 
-input (A,B,C)
+input (A,S,D,F)
+aux1 = H
+L1:
+if aux1 == 0 goto L2
+D = D + 1
+aux1 = aux1 - 1
+goto L1
+L2:
+if G == 0 goto L3
 A = A + 1
-B = B + 1
-C = B
-A = 0
+aux2 = B
+L4:
+if aux2 == 0 goto L5
+D = D + 1
+aux2 = aux2 - 1
+goto L4
+L5:
+
+L6:
+if O == 0 goto L7
+F = F + 1
+goto L6
+
+L7:
+aux3 = K
+L8:
+if aux3 == 0 goto L9
+F = F + 1
+aux3 = aux3 - 1
+goto L8
+L9:
+if G == 0 goto L10
+A = A + 1
+goto L11
+
+L10:
+A = A + 1
+
+L11
 
 output(A);
 
-Fim
+EOF
